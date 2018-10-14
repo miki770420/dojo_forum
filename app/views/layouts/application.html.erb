@@ -34,9 +34,9 @@
             <% if current_user %>
               <li><%= current_user.email %>(<%= current_user.role %>)</li>
               <li><a href="#">Profile</a></li>
-              <li><a href="#">Log out</a></li>
+              <li><%= link_to('Log out', destroy_user_session_path, method: :delete) %></li>
             <% else %>
-              <li><a href="#">Log in</a></li>
+              <li><%= link_to 'Log in', new_user_session_path %></li>
             <% end %>
           </ul>
         </div><!-- /.navbar-collapse -->
