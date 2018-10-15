@@ -1,1 +1,13 @@
 前台
+
+<ul>
+<% @posts.each do |post| %>
+<li><%= post.title %></li>
+<% end %>
+</ul>
+
+<ul>
+<% @users.each do |user| %>
+<li><%= user.name %></li>
+<% end %>
+</ul>

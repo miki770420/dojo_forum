@@ -1,2 +1,21 @@
-<%= current_user.name %>
-<%= current_user.email %>
+<div class="well well-lg">
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="list-unstyled">
+        <li>
+          <% if image_path(@user.avatar).include?('/user'+ @user.id.to_s+'.jpg') %> 
+            <%= image_tag('/avatar/user'+@user.id.to_s+'.jpg', size: "200x200", class: "img-responsive img-circle") %>
+          <% else %> 
+            <%= image_tag @user.avatar, size: "200x200", class: "img-responsive img-circle" if @user.avatar? %>
+          <% end %>
+        </li>
+        <li><strong><h3><%= link_to @user.name, user_path(@user) %></h3></strong></li>
+        <li><h6><%= @user.description %></h6></li>
+      </ul>
+      <% if current_user == @user %>
+        <%= link_to "Edit", edit_user_path(@user), class: "btn btn-primary pull-right" %>
+      <% else %>
+      <% end %>
+    </div>
+  </div>
+</div>
