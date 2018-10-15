@@ -8,6 +8,6 @@
 
 # AdminUser
 User.destroy_all
-User.create(name: "Admin", email: "admin@example.com", password: "12345678")
+User.create(name: "Admin", email: "admin@example.com", password: "12345678", role: "admin")
 
 puts "Admin user is created!"
