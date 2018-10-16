@@ -1,0 +1,20 @@
+<%= simple_form_for post do |f| %>
+  <div class="col-md-12">
+    <div class="form-group">
+      <%= f.text_field :title, placeholder: "Post Title", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.text_area :content, placeholder: "Post Content", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= image_tag post.image.url, width: '300px' if post.image? %>
+      <%= f.file_field :image %>
+    </div>
+    <%= f.button :submit, 'Save as Draft', class: "btn btn-primary" %>
+    <%= f.button :submit, 'Publish', class: "btn btn-primary" %>
+    <% if params[:action] == 'edit' %>
+      <%= link_to "Cancel", post_path(post), class: "btn btn-default" %>
+    <% else %>
+    <% end %>
+  </div>
+<% end %>

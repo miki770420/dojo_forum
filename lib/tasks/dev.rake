@@ -39,6 +39,7 @@ namespace :dev do
       draft: "false",
       published_at: Time.zone.now,
       content: FFaker::Lorem.sentence,
+      replied_at: Time.zone.now,
       )
     end
     puts "now you have #{Post.count} posts"

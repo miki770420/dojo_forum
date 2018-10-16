@@ -1,0 +1,14 @@
+<div class= "container">
+  <% if @post.errors.any? %>
+    <h4 class="text-danger">We have some errors here!</h4>
+    <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li class="text-danger"><%= msg %></li> 
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
+<div class= "container">
+  <%= render partial: "shared/post_format", locals: { post: @post } %>
+</div>

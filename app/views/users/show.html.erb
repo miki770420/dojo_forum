@@ -7,7 +7,7 @@
             <%= image_tag('/avatar/user'+@user.id.to_s+'.jpg', size: "200x200", class: "img-responsive img-circle") %>
           <% else %>
             <% if @user.avatar? %>
-              <%= image_tag @user.avatar, class: "img-responsive img-circle", size: "200x200" %>
+              <%= image_tag @user.avatar.url, class: "img-responsive img-circle", size: "200x200" %>
             <% else %>
               no image
             <% end %>

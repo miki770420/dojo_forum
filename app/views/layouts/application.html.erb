@@ -28,7 +28,7 @@
           <ul class="nav navbar-nav">
             <li><a href="#">Feeds</a></li>
             <li><a href="#">All Post</a></li>
-            <li><a href="#">New Post</a></li>
+            <li><%= link_to 'New Post', new_post_path(@post) %></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <% if current_user %>
