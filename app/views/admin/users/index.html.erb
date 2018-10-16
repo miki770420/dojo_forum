@@ -1,0 +1,45 @@
+<ul class="nav nav-tabs">
+  <li role="presentation">
+    <%= link_to "Category List", admin_categories_path %> 
+  </li>
+  <li role="presentation" class="active">
+    <%= link_to "User List", admin_users_path %> 
+  </li>
+</ul>
+<br>
+<div class="col-md-12">
+  <br>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>User Name</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td>
+            <%= user.name %>
+          </td>
+          <td >
+            <%= user.email %>
+          </td>
+          <td class="user-table-control">
+            <% if user.email != 'admin@example.com' %>
+              <%= simple_form_for [:admin,user] do |f| %>
+                <div class="col-md-3">
+                  <%= f.input :role, label: false, selected: user.role, collection: [['Admin', 'admin'], ['Normal', 'normal']], include_blank: false %>
+                </div>
+                <div class="col-md-3">
+                  <%= f.button :submit ,'update', class: 'btn btn-primary ml-2' %>
+                </div>
+              <%end%>
+            <%end%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

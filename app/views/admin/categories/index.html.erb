@@ -1,3 +1,12 @@
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active">
+    <%= link_to "Category List", admin_categories_path %> 
+  </li>
+  <li role="presentation">
+    <%= link_to "User List", admin_users_path %> 
+  </li>
+</ul>
+<br>
 <div class="col-md-12">
   <% if @category.errors.any? %>
     <%= @category.errors.full_messages.to_sentence %>
