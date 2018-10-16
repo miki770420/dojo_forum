@@ -45,6 +45,22 @@ namespace :dev do
     puts "now you have #{Post.count} posts"
   end
 
+  task fake_category: :environment do
+    Category.destroy_all
+
+     category_list = [
+      { name: "Tech" },
+      { name: "Education" },
+      { name: "Love" },
+      { name: "Environment" },
+      { name: "Economy" },
+    ]
+    category_list.each do |category|
+      Category.create( name: category[:name] )
+    end
+    puts "#{Category.count}Categories are created!"
+  end
+
   task fake_reply: :environment do
     Reply.destroy_all
 
