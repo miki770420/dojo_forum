@@ -5,8 +5,12 @@
         <li>
           <% if image_path(@user.avatar).include?('/user'+ @user.id.to_s+'.jpg') %> 
             <%= image_tag('/avatar/user'+@user.id.to_s+'.jpg', size: "200x200", class: "img-responsive img-circle") %>
-          <% else %> 
-            <%= image_tag @user.avatar, size: "200x200", class: "img-responsive img-circle" if @user.avatar? %>
+          <% else %>
+            <% if @user.avatar? %>
+              <%= image_tag @user.avatar, class: "img-responsive img-circle", size: "200x200" %>
+            <% else %>
+              no image
+            <% end %>
           <% end %>
         </li>
         <li><strong><h3><%= link_to @user.name, user_path(@user) %></h3></strong></li>
