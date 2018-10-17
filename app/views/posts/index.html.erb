@@ -1,13 +1,10 @@
-前台
+<div class="col-md-12">
+  <ul class="nav nav-pills">
+    <li role="presentation" class="active"><%= link_to "All", root_path %></li>
+    <% @categories.each do |category| %>
+      <li role="presentation"><%= link_to category.name, category_path(category) %></li>
+    <% end %>
+  </ul>
 
-<ul>
-<% @posts.each do |post| %>
-<li><%= link_to "#{post.title}", post_path(post) %></li>
-<% end %>
-</ul>
-
-<ul>
-<% @users.each do |user| %>
-<li><%= user.name %></li>
-<% end %>
-</ul>
+  <%= render partial: "shared/post_list" %>
+</div>

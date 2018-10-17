@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   root "posts#index"
 
   resources :users, only: [:edit, :update, :show]
-  resources :categories, only: [:index]
+  resources :categories, only: [:show]
 
   namespace :admin do
     root "categories#index"
