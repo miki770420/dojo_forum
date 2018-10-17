@@ -61,6 +61,15 @@ namespace :dev do
     puts "#{Category.count}Categories are created!"
   end
 
+  task fake_post_category: :environment do
+    PostCategory.destroy_all
+    
+    Post.all.each do |post|
+      post.categories << Category.all.sample(3)
+    end
+    puts "now you have #{PostCategory.count} post_category data"
+  end
+
   task fake_reply: :environment do
     Reply.destroy_all
 
