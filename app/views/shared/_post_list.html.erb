@@ -17,7 +17,7 @@
           <%= link_to "#{post.title}", post_path(post) %>
         </td>
         <td>
-          <%= post.replied_at %>
+          <%= post.replied_at.strftime("%F %T") %>
         </td>
         <td>
           <%= post.viewed_count %>
