@@ -6,7 +6,9 @@ class RepliesController < ApplicationController
     @post = Post.find(params[:post_id])
     @reply = @post.replies.build(reply_params)
     @reply.user = current_user
+    @post.replied_at = Time.zone.now
     if @reply.save
+      @post.save
       redirect_to post_path(@post)
       flash[:notice] = "reply successfully"
     else @reply.save!

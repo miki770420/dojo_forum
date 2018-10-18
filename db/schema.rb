@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_154531) do
+ActiveRecord::Schema.define(version: 2018_10_18_123652) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 2018_10_17_154531) do
     t.boolean "draft", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "replies_count", default: 0
+    t.integer "viewed_count", default: 0
   end
 
   create_table "replies", force: :cascade do |t|

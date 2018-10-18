@@ -16,6 +16,8 @@ class PostsController < ApplicationController
   def show
     @replies = @post.replies.page(params[:page]).per(20)
     @reply = Reply.new
+    @post.viewed_count += 1
+    @post.save!
   end
 
   def edit
