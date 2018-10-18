@@ -73,9 +73,9 @@ namespace :dev do
   task fake_reply: :environment do
     Reply.destroy_all
 
-    Tweet.all.each do |tweet|
-      5.times do |i|
-        tweet.replies.create!(
+    Post.all.each do |post|
+      40.times do |i|
+        post.replies.create!(
         user: User.all.sample,
         comment: FFaker::BaconIpsum.sentence
         )

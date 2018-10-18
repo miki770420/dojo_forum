@@ -45,6 +45,9 @@
         </td>
       </table>
     <% end %>
+    <div style="text-align: center">
+      <%= paginate @replies %>
+    </div>
     <%= simple_form_for [@post, @reply] do |f| %>
       <div class="col-md-12">
         <div class="form-group">

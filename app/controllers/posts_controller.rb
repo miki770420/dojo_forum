@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @replies = @post.replies.all
+    @replies = @post.replies.page(params[:page]).per(20)
     @reply = Reply.new
   end
 
