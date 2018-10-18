@@ -82,7 +82,7 @@ private
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :image, :draft)
+    params.require(:post).permit(:title, :content, :image, :draft, :privacy)
   end
 
   def publishing?

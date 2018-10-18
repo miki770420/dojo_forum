@@ -13,6 +13,17 @@
     <div class="form-group">
       <%= f.association :categories, as: :check_boxes, collection: @categories, input_html: { multiple: true } %>
     </div>
+    <div class="form-group">
+      <%= f.input :privacy, as: :radio_buttons, collection: [['All', '0'], ['Friend', '1'], ['Myself', '2']], label_method: :first, value_method: :second, checked: post.privacy %>
+    </div>
+    <div class="form-group">
+      Status: 
+      <% if post.draft == false %>
+        Published
+      <% else %>
+        Draft
+      <% end %>
+    </div>
     <br>
     <%= f.button :submit, 'Save as Draft', class: "btn btn-primary" %>
     <%= f.button :submit, 'Publish', class: "btn btn-primary" %>
