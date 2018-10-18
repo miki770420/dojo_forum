@@ -10,6 +10,10 @@
       <%= image_tag post.image.url, width: '300px' if post.image? %>
       <%= f.file_field :image %>
     </div>
+    <div class="form-group">
+      <%= f.association :categories, as: :check_boxes, collection: @categories, input_html: { multiple: true } %>
+    </div>
+    <br>
     <%= f.button :submit, 'Save as Draft', class: "btn btn-primary" %>
     <%= f.button :submit, 'Publish', class: "btn btn-primary" %>
     <% if params[:action] == 'edit' %>
