@@ -1,0 +1,12 @@
+<%= simple_form_for [@post, @reply] do |f| %>
+  <div class="col-md-12">
+    <div class="form-group">
+      <%= f.text_area :comment, placeholder: "Reply Here!", class: "form-control" %>
+    </div>
+    <%= f.submit class: "btn btn-primary" %>
+    <% if params[:action] == 'edit' %>
+      <%= link_to "Cancel", post_path(@post), class: "btn btn-default" %>
+    <% else %>
+    <% end %>
+  </div>
+<% end %>

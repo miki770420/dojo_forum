@@ -14,6 +14,8 @@ class PostsController < ApplicationController
   end
 
   def show
+    @replies = @post.replies.all
+    @reply = Reply.new
   end
 
   def edit

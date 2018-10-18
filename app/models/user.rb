@@ -8,10 +8,12 @@ class User < ApplicationRecord
   validates_uniqueness_of :name, :email
 
   has_many :posts, dependent: :destroy
+  has_many :replies, dependent: :destroy
 
   mount_uploader :avatar, AvatarUploader
 
   def admin?
     self.role == "admin"
   end
+
 end
