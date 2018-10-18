@@ -4,6 +4,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @published_posts = @user.posts.where( :draft => false ).page(params[:published_page]).per(20)
+    @draft_posts = @user.posts.where( :draft => true ).page(params[:draft_page]).per(20)
+    @replies = @user.replies.page(params[:replies_page]).per(20)
   end
 
   def edit
