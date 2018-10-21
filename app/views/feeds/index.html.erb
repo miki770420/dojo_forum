@@ -1,0 +1,40 @@
+<div class="container" id="personal-show">
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div class="well row">
+        <div class="col-md-12 divider text-center">
+          <div class="col-md-4 emphasis">
+            <h4>User</h4>
+            <h4><strong> <%= User.count %> </strong></h4>
+          </div>
+          <div class="col-md-4 emphasis">
+            <h4>Post</h4>
+            <h4><strong> <%= Post.count %> </strong></h4>
+          </div>
+          <div class="col-md-4 emphasis">
+            <h4>Comment</h4>
+            <h4><strong> <%= Reply.count %> </strong></h4>
+          </div>
+        </div>
+      </div> 
+      <div class="col-md-4 text-center" >
+        <h4>Chatterbox</h4>
+        <hr>
+        <ol>
+          <% @popular_users.each do |user| %>
+          <li><%= user.name %> <%= user.replies.count %></li>
+          <% end %>
+        </ol>
+      </div>   
+      <div class="col-md-8 text-center" >
+        <h4>Most Popular Post</h4>
+        <hr>
+        <ol>
+          <% @popular_posts.each do |post| %>
+          <li><%= post.title %> <%= post.published_at.strftime("%F %T")%></li>
+          <% end %>
+        </ol>
+      </div>            
+    </div>
+  </div>
+</div>

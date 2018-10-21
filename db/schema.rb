@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_123652) do
+ActiveRecord::Schema.define(version: 2018_10_21_125006) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2018_10_18_123652) do
     t.string "role", default: "normal", null: false
     t.string "avatar"
     t.text "description", default: ""
+    t.integer "replies_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

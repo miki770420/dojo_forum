@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :replies
   end
 
+  resources :feeds, only: [:index]
+
   root "posts#index"
 
   resources :users, only: [:edit, :update, :show]
