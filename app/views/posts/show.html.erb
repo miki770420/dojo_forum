@@ -7,6 +7,7 @@
     <td>
       <p><%= image_tag @post.user.avatar.url, class: "img-responsive img-circle", size: "200x200"  if @post.user.avatar? %></p>
       <p><%= @post.user.name %></p>
+      <%= render partial: "shared/friend_button", locals: {user: @post.user} %>
     </td>
     <td>
       <p><%= image_tag @post.image.url, size: "300x300" if @post.image? %></p>
@@ -29,6 +30,7 @@
         <td class="col-md-3">
           <p><%= image_tag reply.user.avatar.url, class: "img-responsive img-circle", size: "200x200"  if reply.user.avatar? %></p>
           <p><%= reply.user.name %></p>
+          <%= render partial: "shared/friend_button", locals: {user: reply.user} %>
         </td>
         <td class="col-md-9">
           <p><%= reply.comment %></p>
