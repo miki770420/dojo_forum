@@ -1,6 +1,8 @@
 <% if current_user == user %>
 <% elsif current_user.is_friend?(user)%>
   <button type="button" class="btn btn-default" disabled="disabled">My Friend</button>
+<% elsif current_user.is_ignore?(user)%>
+  <button type="button" class="btn btn-default" disabled="disabled">Ignored Invitation</button>
 <% elsif current_user.is_invited?(user)%>
   <%= link_to 'Accept', accept_user_path(user), method: :post, class: 'btn btn-primary' %>
   <%= link_to 'Ignore', ignore_user_path(user), method: :post, class: 'btn btn-warning' %>

@@ -43,4 +43,9 @@ class User < ApplicationRecord
     friendship = self.inverse_friendships.find_by(user: user)
     friendship.status == 'wait' if friendship.present?
   end
+
+  def is_ignore?(user)
+    friendship = self.inverse_friendships.find_by(user: user)
+    friendship.status == 'ignore' if friendship.present?
+  end
 end
