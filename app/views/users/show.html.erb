@@ -87,6 +87,29 @@
         <%= paginate @replies, param_name: "replies_page" %>
       </div>
     </div>
+    <div class="tab-pane fade" id="mycollect">
+      <table class="table">
+        <tbody>
+          <% @collects.each do |collect| %>
+            <tr>
+              <td>
+                <%= link_to "#{collect.title}", post_path(collect) %>
+              </td>
+              <td>
+                <% if @user == current_user %>
+                  <% if collect.is_collected?(@user) %>
+                    <%= link_to 'Uncollect', uncollect_post_path(collect), method: :post, class: "btn btn-warning pull-right" %>
+                  <% else %>
+                    <%= link_to 'Collect', collect_post_path(collect), method: :post, class: "btn btn-primary pull-right" %>
+                  <% end %>
+                <% else %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
     <div class="tab-pane fade" id="mydraft">
       <table class="table">
         <tbody>

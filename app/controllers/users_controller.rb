@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     @friends = current_user.friends.where('friendships.status = ?', 'accept')
     @invitings = current_user.friends.where('friendships.status = ?', 'wait')
     @inviters = current_user.inviters.where('friendships.status = ?', 'wait')
+    @collects = @user.collected_posts.page(params[:collection_page]).per(20)
   end
 
   def edit

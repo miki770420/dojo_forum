@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
   has_many :inviters, through: :inverse_friendships, source: :user
+  has_many :collections, dependent: :destroy
+  has_many :collected_posts, through: :collections, source: :post
 
   mount_uploader :avatar, AvatarUploader
 

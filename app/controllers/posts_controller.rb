@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :collect, :uncollect]
 
   def index
     @q = Post.ransack(params[:q])
@@ -74,6 +74,17 @@ class PostsController < ApplicationController
       flash[:alert] = 'Not allowed!'
       redirect_back(fallback_location: root_path)
     end
+  end
+
+  def collect
+    @post.collections.create!(user: current_user)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def uncollect
+    collects = Collection.where(post: @post, user: current_user)
+    collects.destroy_all
+    redirect_back(fallback_location: root_path)
   end
 
 private

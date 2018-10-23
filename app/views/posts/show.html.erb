@@ -1,6 +1,15 @@
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading"><%= @post.title %> (draft: <%= @post.draft %>)</div>
+  <div class="panel-heading">
+    <div class="row">
+      <%= @post.title %> (draft: <%= @post.draft %>)
+      <% if @post.is_collected?(current_user) %>
+        <%= link_to 'Uncollect', uncollect_post_path(@post), method: :post, class: "btn btn-warning pull-right" %>
+      <% else %>
+        <%= link_to 'Collect', collect_post_path(@post), method: :post, class: "btn btn-primary pull-right" %>
+      <% end %>
+    </div>
+  </div>
 
   <!-- Table -->
   <table class="table">
