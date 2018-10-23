@@ -7,6 +7,9 @@ class UsersController < ApplicationController
     @published_posts = @user.posts.where( :draft => false ).page(params[:published_page]).per(20)
     @draft_posts = @user.posts.where( :draft => true ).page(params[:draft_page]).per(20)
     @replies = @user.replies.page(params[:replies_page]).per(20)
+    @friends = current_user.friends.where('friendships.status = ?', 'accept')
+    @invitings = current_user.friends.where('friendships.status = ?', 'wait')
+    @inviters = current_user.inviters.where('friendships.status = ?', 'wait')
   end
 
   def edit

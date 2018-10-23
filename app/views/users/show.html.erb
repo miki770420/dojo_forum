@@ -9,7 +9,7 @@
             <% if @user.avatar? %>
               <%= image_tag @user.avatar.url, class: "img-responsive img-circle", size: "200x200" %>
             <% else %>
-              no image
+              no avatar
             <% end %>
           <% end %>
         </li>
@@ -117,6 +117,63 @@
           <% end %>
         </tbody>
       </table>
+    </div>
+    <div class="tab-pane fade" id="myfriend">
+      <% if @invitings.count > 0 %>
+        <div class="col-md-12 text-center">
+          <h4>Wait for response</h4>
+          <% @invitings.each do |inviting| %>
+            <div class="col-md-2">
+              <%= link_to user_path(inviting) do %>
+                <% if inviting.avatar? %>
+                  <%= image_tag inviting.avatar.url, class: "img-responsive img-circle", size: "100x100" %>
+                <% else %>
+                  no avatar
+                <% end %>
+                <br>
+                <%= inviting.name %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <p></p>
+      <% if @inviters.count > 0 %>
+        <div class="col-md-12 text-center">
+          <h4>Wait for your response</h4>
+          <% @inviters.each do |inviter| %>
+            <div class="col-md-2">
+              <%= link_to user_path(inviter) do %>
+                <% if inviter.avatar? %>
+                  <%= image_tag inviter.avatar.url, class: "img-responsive img-circle", size: "100x100" %>
+                <% else %>
+                  no avatar
+                <% end %>
+                <br>
+                <%= inviter.name %>
+                <br>
+                <%= render partial: "shared/friend_button", locals: {user: inviter} %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="col-md-12 text-center">
+        <h4>your friends</h4>
+        <% @friends.each do |friend| %>
+          <div class="col-md-2">
+            <%= link_to user_path(friend) do %>
+              <% if friend.avatar? %>
+                <%= image_tag friend.avatar.url, class: "img-responsive img-circle", size: "100x100" %>
+              <% else %>
+                no avatar
+              <% end %>
+              <br>
+              <%= friend.name %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
