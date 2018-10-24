@@ -18,9 +18,13 @@ class Post < ApplicationRecord
       return true
     elsif self.privacy == 2 && self.user == viewer
       return true
-    elsif viewer.friends.include?(self.user)
-      friendship = viewer.friendships.find_by(friend: self.user)
-      friendship.status == 'accept' if friendship.present?
+    elsif viewer.present?
+      if viewer.friends.include?(self.user)
+        friendship = viewer.friendships.find_by(friend: self.user)
+        friendship.status == 'accept' if friendship.present?
+      else
+        return false
+      end
     else
       return false
     end
