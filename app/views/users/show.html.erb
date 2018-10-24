@@ -19,6 +19,7 @@
       <% if current_user == @user %>
         <%= link_to "Edit", edit_user_path(@user), class: "btn btn-primary pull-right" %>
       <% else %>
+        <%= render partial: "shared/friend_button", locals: {user: @user} %>
       <% end %>
     </div>
   </div>
@@ -28,7 +29,10 @@
     <li class="active"><a href="#mypost" data-toggle="tab">My Post</a></li>
     <li><a href="#mycomment" data-toggle="tab">My Comment</a></li>
     <li><a href="#mycollect" data-toggle="tab">My Collect</a></li>
-    <li><a href="#mydraft" data-toggle="tab">My Draft</a></li>
+    <% if @user == current_user %>
+      <li><a href="#mydraft" data-toggle="tab">My Draft</a></li>
+    <% else %>
+    <% end %>
     <li><a href="#myfriend" data-toggle="tab">My Friend</a></li>
   </ul>
   <div id="myTabContent" class="tab-content">
