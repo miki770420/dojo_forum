@@ -35,9 +35,15 @@ class Admin::CategoriesController < ApplicationController
 
   def destroy
     @category = Category.find(params[:id])
-    @category.destroy
-    flash[:alert] = "category was successfully deleted"
-    redirect_to admin_categories_path
+
+    if @category.posts.count == 0
+      @category.destroy
+      flash[:notice] = "category was successfully deleted"
+      redirect_to admin_categories_path
+    else
+      flash[:alert] = "category cannot be delete, it has posts already!"
+      redirect_to admin_categories_path
+    end
   end
 
 
