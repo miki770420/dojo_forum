@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   def index
     @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true).page(params[:page]).per(20)
+    @posts = @q.result(distinct: true).where(:draft => false).page(params[:page]).per(20)
     @post = Post.new
     @categories = Category.all
   end
@@ -37,13 +37,11 @@ class PostsController < ApplicationController
     @post.published_at = nil if save_as_draft?
     if @post.save
       if publishing?
-        @post.draft = false
-        @post.save
-        flash[:notice] = "post was successfully created"
+        can_publish?
       else
         flash[:notice] = "post was saved as draft"
+        redirect_to post_path(@post)
       end
-      redirect_to post_path(@post)
     else
       flash.now[:alert] = @post.errors.full_messages.to_sentence if @post.errors.any?
       render new_post_path(@post)
@@ -55,15 +53,13 @@ class PostsController < ApplicationController
     @post.published_at = nil if save_as_draft?
     if @post.update(post_params)
       if publishing? && @post.draft == true
-        @post.draft = false
-        @post.save
-        flash[:notice] = "post was successfully created"
+        can_publish?
       else save_as_draft?
         @post.draft = true
         @post.save
         flash[:notice] = "post was successfully updated"
+        redirect_to post_path(@post)
       end
-      redirect_to post_path(@post)
     else
       flash.now[:alert] = @post.errors.full_messages.to_sentence if @post.errors.any?
       render :edit
@@ -98,7 +94,7 @@ private
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :image, :draft, :privacy)
+    params.require(:post).permit(:title, :content, :image, :draft, :privacy, category_ids:[])
   end
 
   def publishing?
@@ -107,6 +103,20 @@ private
 
    def save_as_draft?
     params[:commit] == 'Save as Draft'
+  end
+
+  def can_publish?
+    if @post.title.empty? || @post.content.empty? || @post.categories.empty?  || @post.privacy.empty?
+      @post.draft = true
+      @post.save
+      flash[:alert] = "post title, content, category, privacy shall not empty! (post is saved as draft)"
+      redirect_to edit_post_path(@post)
+    else
+      @post.draft = false
+      @post.save
+      flash[:notice] = "post was successfully created"
+      redirect_to post_path(@post)
+    end
   end
 
 end

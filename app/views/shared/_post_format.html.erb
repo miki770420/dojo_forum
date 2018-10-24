@@ -1,3 +1,9 @@
+<% if params[:action] == 'new' %>
+  <h4>New Post</h4>
+<% else %>
+  <h4>Edit Post</h4>
+<% end %>
+
 <%= simple_form_for post do |f| %>
   <div class="col-md-12">
     <div class="form-group">
