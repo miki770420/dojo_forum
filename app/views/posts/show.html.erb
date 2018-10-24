@@ -12,13 +12,13 @@
   </div>
 
   <!-- Table -->
-  <table class="table">
-    <td>
+  <table class="table table-bordered">
+    <td class="col-md-2 text-center">
       <p><%= image_tag @post.user.avatar.url, class: "img-responsive img-circle", size: "200x200"  if @post.user.avatar? %></p>
-      <p><%= @post.user.name %></p>
+      <p><%= link_to "#{@post.user.name}", user_path(@post.user) %></p>
       <%= render partial: "shared/friend_button", locals: {user: @post.user} %>
     </td>
-    <td>
+    <td class="col-md-10">
       <p><%= image_tag @post.image.url, size: "300x300" if @post.image? %></p>
       <p><%= @post.content %></p>
       <%= link_to post_path(@post), method: :delete do %>
@@ -33,15 +33,17 @@
       <% end %>
     </td>
   </table>
+  <hr>
+  <h4 class="text-center"><strong>Reply</strong></h4>
   <div class="panel-body">
     <% @replies.each do |reply| %>
-      <table class="table">
-        <td class="col-md-3">
+      <table class="table table-bordered">
+        <td class="col-md-2 text-center">
           <p><%= image_tag reply.user.avatar.url, class: "img-responsive img-circle", size: "200x200"  if reply.user.avatar? %></p>
-          <p><%= reply.user.name %></p>
+          <p><%= link_to "#{reply.user.name}", user_path(reply.user) %></p>
           <%= render partial: "shared/friend_button", locals: {user: reply.user} %>
         </td>
-        <td class="col-md-9">
+        <td class="col-md-10">
           <p><%= reply.comment %></p>
           <%= link_to post_reply_path(@post, reply), method: :delete do %>
             <button type="button" class="btn btn-default pull-right">

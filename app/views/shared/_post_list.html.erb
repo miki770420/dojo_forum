@@ -9,23 +9,21 @@
   </thead>
   <tbody>
     <% @posts.each do |post| %>
-      <% if post.is_viewable?(current_user) %>
-        <tr>
-          <td>
-            <%= post.replies_count %>
-          </td>
-          <td>
-            <%= link_to "#{post.title}", post_path(post) %>
-            <%= post.privacy %>
-          </td>
-          <td>
-            <%= post.replied_at.strftime("%F %T") if post.replies.present?  %>
-          </td>
-          <td>
-            <%= post.viewed_count %>
-          </td>
-        </tr>
-      <% end %>
+      <tr>
+        <td>
+          <%= post.replies_count %>
+        </td>
+        <td>
+          <%= link_to "#{post.title}", post_path(post) %>
+          <%= post.privacy %>
+        </td>
+        <td>
+          <%= post.replied_at.strftime("%F %T") if post.replies.present?  %>
+        </td>
+        <td>
+          <%= post.viewed_count %>
+        </td>
+      </tr>
     <% end %>
   </tbody>
 </table>

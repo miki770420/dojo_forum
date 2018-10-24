@@ -28,12 +28,12 @@
   <ul class="nav nav-tabs nav-justified"">
     <li class="active"><a href="#mypost" data-toggle="tab">My Post</a></li>
     <li><a href="#mycomment" data-toggle="tab">My Comment</a></li>
-    <li><a href="#mycollect" data-toggle="tab">My Collect</a></li>
     <% if @user == current_user %>
+      <li><a href="#mycollect" data-toggle="tab">My Collect</a></li>    
       <li><a href="#mydraft" data-toggle="tab">My Draft</a></li>
+      <li><a href="#myfriend" data-toggle="tab">My Friend</a></li>
     <% else %>
     <% end %>
-    <li><a href="#myfriend" data-toggle="tab">My Friend</a></li>
   </ul>
   <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade active in" id="mypost">
@@ -41,13 +41,13 @@
         <tbody>
           <% @published_posts.each do |post| %>
             <tr>
-              <td>
+              <td class="col-md-8">
                 <%= link_to "#{post.title}", post_path(post) %>
               </td>
-              <td>
+              <td class="col-md-2">
                 Published
               </td>
-              <td>
+              <td class="col-md-2">
                 <%= post.created_at.strftime("%F %T") %>
               </td>
             </tr>
@@ -119,16 +119,16 @@
         <tbody>
           <% @draft_posts.each do |post| %>
             <tr>
-              <td>
+              <td class="col-md-7">
                 <%= link_to "#{post.title}", post_path(post) %>
               </td>
-              <td>
+              <td class="col-md-2">
                 Draft
               </td>
-              <td>
+              <td  class="col-md-2">
                 <%= post.created_at.strftime("%F %T") %>
               </td>
-              <td>
+              <td class="col-md-1">
                 <%= link_to post_path(post), method: :delete do %>
                   <button type="button" class="btn btn-default pull-right">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -148,9 +148,9 @@
     <div class="tab-pane fade" id="myfriend">
       <% if @invitings.count > 0 %>
         <div class="col-md-12 text-center">
-          <h4>Wait for response</h4>
+          <h4>Inviting</h4>
           <% @invitings.each do |inviting| %>
-            <div class="col-md-2">
+            <div class="col-md-2 border">
               <%= link_to user_path(inviting) do %>
                 <% if inviting.avatar? %>
                   <%= image_tag inviting.avatar.url, class: "img-responsive img-circle", size: "100x100" %>
@@ -169,7 +169,7 @@
         <div class="col-md-12 text-center">
           <h4>Wait for your response</h4>
           <% @inviters.each do |inviter| %>
-            <div class="col-md-2">
+            <div class="col-md-2 border">
               <%= link_to user_path(inviter) do %>
                 <% if inviter.avatar? %>
                   <%= image_tag inviter.avatar.url, class: "img-responsive img-circle", size: "100x100" %>
@@ -186,9 +186,9 @@
         </div>
       <% end %>
       <div class="col-md-12 text-center">
-        <h4>your friends</h4>
+        <h4>Your friends</h4>
         <% @friends.each do |friend| %>
-          <div class="col-md-2">
+          <div class="col-md-2 border">
             <%= link_to user_path(friend) do %>
               <% if friend.avatar? %>
                 <%= image_tag friend.avatar.url, class: "img-responsive img-circle", size: "100x100" %>
