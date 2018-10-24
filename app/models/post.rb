@@ -9,14 +9,33 @@ class Post < ApplicationRecord
 
   mount_uploader :image, PostUploader
 
+  enum privacy: {
+    all_user:     0, # 公開
+    only_friend:  1, # 好友限定
+    only_me:      2, # 僅限自己
+  }
+
+  scope :published, -> {
+    where( draft: false )
+  }
+
+  scope :draft, -> {
+    where( draft: true )
+  }
+
+  scope :friend_post, -> (user){
+    friends = user.friends.where('friendships.status = ?', 'accept')
+    only_friend.where('user_id in (?)', friends.map{|x|x.id})
+  }
+
   def is_collected?(user)
     self.collected_users.include?(user)
   end
 
   def is_viewable?(viewer)
-    if self.privacy == 0
+    if self.privacy == 'all_user'
       return true
-    elsif self.privacy == 2 && self.user == viewer
+    elsif self.privacy == 'only_me' && self.user == viewer
       return true
     elsif viewer.present?
       if viewer.friends.include?(self.user)

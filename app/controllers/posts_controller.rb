@@ -3,8 +3,12 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :collect, :uncollect]
 
   def index
-    @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true).where(:draft => false).page(params[:page]).per(20)
+    if current_user
+      @q = Post.published.all_user.or(Post.published.friend_post(current_user)).or(current_user.posts.published.only_me).ransack(params[:q])
+    else
+      @q = Post.published.all_user.ransack(params[:q])
+    end
+    @posts = @q.result(distinct: true).page(params[:page]).per(20)
     @post = Post.new
     @categories = Category.all
   end
