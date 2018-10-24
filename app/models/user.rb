@@ -25,7 +25,7 @@ class User < ApplicationRecord
   def is_friend?(user)
     if self.friendships.find_by(friend: user).nil?
       if self.inverse_friendships.find_by(user: user).nil?
-        puts 'false'
+        return false
       else
         inviter = self.inverse_friendships.find_by(user: user)
         inviter.status == 'accept'

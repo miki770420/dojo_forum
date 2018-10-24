@@ -15,10 +15,15 @@ class PostsController < ApplicationController
   end
 
   def show
-    @replies = @post.replies.page(params[:page]).per(20)
-    @reply = Reply.new
-    @post.viewed_count += 1
-    @post.save!
+    if @post.is_viewable?(current_user)
+      @replies = @post.replies.page(params[:page]).per(20)
+      @reply = Reply.new
+      @post.viewed_count += 1
+      @post.save!
+    else
+      flash[:alert] = "You are not allow to view!"
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def edit

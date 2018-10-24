@@ -12,4 +12,18 @@ class Post < ApplicationRecord
   def is_collected?(user)
     self.collected_users.include?(user)
   end
+
+  def is_viewable?(viewer)
+    if self.privacy == 0
+      return true
+    elsif self.privacy == 2 && self.user == viewer
+      return true
+    elsif viewer.friends.include?(self.user)
+      friendship = viewer.friendships.find_by(friend: self.user)
+      friendship.status == 'accept' if friendship.present?
+    else
+      return false
+    end
+  end
+
 end
