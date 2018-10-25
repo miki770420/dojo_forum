@@ -82,14 +82,30 @@ class PostsController < ApplicationController
   end
 
   def collect
-    @post.collections.create!(user: current_user)
-    redirect_back(fallback_location: root_path)
+    collect = @post.collections.create!(user: current_user)
+    if collect.save
+      flash[:notice] = "collect post successfully"
+    else
+      flash[:alert] = "collect post failed"
+      redirect_back(fallback_location: root_path)
+    end
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def uncollect
     collects = Collection.where(post: @post, user: current_user)
-    collects.destroy_all
-    redirect_back(fallback_location: root_path)
+    if collects.destroy_all
+      flash[:notice] = "uncollect post successfully"
+    else
+      flash[:alert] = "uncollect post failed"
+      redirect_back(fallback_location: root_path)
+    end
+    respond_to do |format|
+      format.js
+    end
   end
 
 private

@@ -1,0 +1,5 @@
+<% if @post.is_collected?(current_user) %>
+  <%= link_to 'Uncollect', uncollect_post_path(@post), remote: true, method: :post, class: "btn btn-warning pull-right" %>
+<% else %>
+  <%= link_to 'Collect', collect_post_path(@post), remote: true, method: :post, class: "btn btn-primary pull-right" %>
+<% end %>
