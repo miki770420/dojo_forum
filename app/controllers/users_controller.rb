@@ -40,28 +40,37 @@ class UsersController < ApplicationController
       @friendship = Friendship.create!(user: current_user, friend: @user)
       if @friendship.save
         flash[:notice] = 'Send invitation successfully'
-        redirect_back(fallback_location: root_path)
+        respond_to do |format|
+          format.js
+        end
       else
         flash[:alert] = @friendship.errors.full_messages.to_sentence if @friendship.errors.any?
         redirect_back(fallback_location: root_path)
       end
     end
+    
   end
 
    def accept
     @friendship = Friendship.find_by(user: @user , friend: current_user)
     @friendship.status = 'accept'
     @friendship.save
-    flash[:notice] = 'You are friends now!'
-    redirect_back(fallback_location: root_path)
+    flash.now[:notice] = 'You are friends now!'
+    
+    respond_to do |format|
+      format.js
+    end
   end
 
   def ignore
     @friendship = Friendship.find_by(user: @user , friend: current_user)
     @friendship.status = 'ignore'
     @friendship.save
-    flash[:notice] = 'Ignore the invitation!'
-    redirect_back(fallback_location: root_path)
+    flash.now[:notice] = 'Ignore the invitation!'
+
+    respond_to do |format|
+      format.js
+    end
   end
   
 

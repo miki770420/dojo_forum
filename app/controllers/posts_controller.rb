@@ -84,14 +84,12 @@ class PostsController < ApplicationController
   def collect
     collect = @post.collections.create!(user: current_user)
     if collect.save
-      flash[:notice] = "collect post successfully"
+      respond_to do |format|
+        format.js { flash.now[:notice] = "collect post successfully" }
+      end
     else
       flash[:alert] = "collect post failed"
       redirect_back(fallback_location: root_path)
-    end
-
-    respond_to do |format|
-      format.js
     end
   end
 

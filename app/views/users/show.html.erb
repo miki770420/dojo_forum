@@ -179,7 +179,9 @@
                 <br>
                 <%= inviter.name %>
                 <br>
-                <%= render partial: "shared/friend_button", locals: {user: inviter} %>
+                <div id="friend_button">
+                  <%= render partial: "shared/friend_button", locals: {user: inviter} %>
+                </div>
               <% end %>
             </div>
           <% end %>
