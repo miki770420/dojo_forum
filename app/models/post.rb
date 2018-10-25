@@ -28,6 +28,10 @@ class Post < ApplicationRecord
     only_friend.where('user_id in (?)', friends.map{|x|x.id})
   }
 
+  scope :my_post, ->(user){
+    where('user_id = ?', user.id).only_me
+  }
+
   def is_collected?(user)
     self.collected_users.include?(user)
   end
