@@ -2,9 +2,10 @@
   <thead>
     <tr>
       <th class="col-md-2"><%= sort_link @q, :replies_count,'Replied Count' %></th>
-      <th class="col-md-6"><%= sort_link @q, :title,'Title' %></th>
+      <th class="col-md-5"><%= sort_link @q, :title,'Title' %></th>
+      <th class="col-md-2"><%= Category %></th>
       <th class="col-md-2"><%= sort_link @q, :replied_at,'Last Replied at' %></th>
-      <th class="col-md-2"><%= sort_link @q, :viewed_at,'View Count' %></th>
+      <th class="col-md-1"><%= sort_link @q, :viewed_count,'View Count' %></th>
     </tr>
   </thead>
   <tbody>
@@ -16,6 +17,11 @@
         <td>
           <%= link_to "#{post.title}", post_path(post) %>
           <%= post.privacy %>
+        </td>
+        <td>
+          <% post.categories.each do |category| %>
+            <%= category.name %>
+          <% end %>
         </td>
         <td>
           <%= post.replied_at.strftime("%F %T") if post.replies.present?  %>

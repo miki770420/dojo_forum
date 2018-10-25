@@ -56,7 +56,7 @@ class PostsController < ApplicationController
     @post.published_at = Time.zone.now if publishing?
     @post.published_at = nil if save_as_draft?
     if @post.update(post_params)
-      if publishing? && @post.draft == true
+      if publishing?
         can_publish?
       else save_as_draft?
         @post.draft = true

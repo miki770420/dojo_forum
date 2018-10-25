@@ -32,6 +32,10 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <% if current_user %>
+              <% if current_user.admin? %>
+                <li><%= link_to 'Admin Path', admin_root_path %></li>
+              <% else %>
+              <% end %>
               <li id="user-info"><%= current_user.email %> (<%= current_user.role %>)</li>
               <li><%= link_to 'Profile', user_path(current_user) %></li>
               <li><%= link_to('Log out', destroy_user_session_path, method: :delete) %></li>
