@@ -101,6 +101,28 @@ namespace :dev do
     puts "now have #{Friendship.count} friendships"
   end
 
+  task fake_collection: :environment do
+    Collection.destroy_all
+
+    User.all.each do |user|
+      posts = Post.all_user.sample(10)
+      posts.each do |post|
+        user.collected_posts << post
+      end
+    end
+    puts "now have #{Collect.count} collects"
+  end
+
+   task fake_all: :environment do
+    system 'rails dev:fake_user'
+    system 'rails db:seed'
+    system 'rails dev:fake_friend'
+    system 'rails dev:fake_post'
+    system 'rails dev:fake_category'
+    system 'rails dev:fake_post_category'
+    system 'rails dev:fake_reply'
+    system 'rails dev:fake_collection'
+  end
 
 
 end
