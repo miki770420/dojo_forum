@@ -71,7 +71,7 @@
     <div style="text-align: center">
       <%= paginate @replies %>
     </div>
-    <%= simple_form_for [@post, @reply] do |f| %>
+    <%= simple_form_for [@post, @reply], { remote: true } do |f| %>
       <div class="col-md-12">
         <div class="form-group">
           <%= f.text_area :comment, placeholder: "Reply Here!", class: "form-control" %>

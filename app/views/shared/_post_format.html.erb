@@ -3,39 +3,40 @@
 <% else %>
   <h4>Edit Post</h4>
 <% end %>
-
-<%= simple_form_for post do |f| %>
-  <div class="col-md-12">
-    <div class="form-group">
-      <%= f.text_field :title, placeholder: "Post Title", class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.text_area :content, placeholder: "Post Content", class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= image_tag post.image.url, width: '300px' if post.image? %>
-      <%= f.file_field :image %>
-    </div>
-    <div class="form-group">
-      <%= f.association :categories, as: :check_boxes, collection: @categories, input_html: { multiple: true } %>
-    </div>
-    <div class="form-group">
-      <%= f.input :privacy, as: :radio_buttons, collection: Post.privacies, label_method: :first, value_method: :first, checked: post.privacy %>
-    </div>
-    <div class="form-group">
-      Status: 
-      <% if post.draft == false %>
-        Published
+<div class= "container">
+  <%= simple_form_for post do |f| %>
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.text_field :title, placeholder: "Post Title", class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.text_area :content, placeholder: "Post Content", class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= image_tag post.image.url, width: '300px' if post.image? %>
+        <%= f.file_field :image %>
+      </div>
+      <div class="form-group">
+        <%= f.association :categories, as: :check_boxes, collection: @categories, input_html: { multiple: true } %>
+      </div>
+      <div class="form-group">
+        <%= f.input :privacy, as: :radio_buttons, collection: Post.privacies, label_method: :first, value_method: :first, checked: post.privacy %>
+      </div>
+      <div class="form-group">
+        Status: 
+        <% if post.draft == false %>
+          Published
+        <% else %>
+          Draft
+        <% end %>
+      </div>
+      <br>
+      <%= f.button :submit, 'Save as Draft', class: "btn btn-primary" %>
+      <%= f.button :submit, 'Publish', class: "btn btn-primary" %>
+      <% if params[:action] == 'edit' %>
+        <%= link_to "Cancel", post_path(post), class: "btn btn-default" %>
       <% else %>
-        Draft
       <% end %>
     </div>
-    <br>
-    <%= f.button :submit, 'Save as Draft', class: "btn btn-primary" %>
-    <%= f.button :submit, 'Publish', class: "btn btn-primary" %>
-    <% if params[:action] == 'edit' %>
-      <%= link_to "Cancel", post_path(post), class: "btn btn-default" %>
-    <% else %>
-    <% end %>
-  </div>
-<% end %>
+  <% end %>
+</div>

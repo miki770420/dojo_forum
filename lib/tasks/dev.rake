@@ -10,7 +10,7 @@ namespace :dev do
 
       user = User.new(
         name: FFaker::Name::first_name,
-        email: "user#{i+1}@example.co",
+        email: "#{name}@example.co",
         password: "12345678",
         description: FFaker::Lorem::sentence(30),
         avatar: file,
@@ -39,7 +39,6 @@ namespace :dev do
       draft: "false",
       published_at: Time.zone.now,
       content: FFaker::Lorem.sentence,
-      replied_at: Time.zone.now,
       )
     end
     puts "now you have #{Post.count} posts"
@@ -73,16 +72,35 @@ namespace :dev do
   task fake_reply: :environment do
     Reply.destroy_all
 
-    Post.all.each do |post|
-      40.times do |i|
-        post.replies.create!(
-        user: User.all.sample,
-        comment: FFaker::BaconIpsum.sentence
+    Post.all_user.each do |post|
+      users = User.all.sample(rand(5..20))
+      users.each do |user|
+        post.replies.create(
+          user_id: user.id,
+          comment: FFaker::BaconIpsum.sentence
         )
       end
     end
     puts "have created fake reply"
     puts "now you have #{Reply.count} replies data"
   end
+
+  task fake_friend: :environment do 
+    Friendship.destroy_all
+
+    User.all.each do |user|
+      User.all.sample(rand(5..10)).each do |friend|
+        if user != friend
+          if !user.is_friend?(friend)
+            user.friendships.create!(friend_id: friend.id, status: 'accept')
+            user.inverse_friendships.create!(user_id: friend.id, status: 'accept')
+          end
+        end
+      end
+    end
+    puts "now have #{Friendship.count} friendships"
+  end
+
+
 
 end
