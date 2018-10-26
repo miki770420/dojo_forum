@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # AdminUser
-User.destroy_all
+
 User.create(name: "Admin", email: "admin@example.com", password: "12345678", role: "admin")
 
 puts "Admin user is created!"
