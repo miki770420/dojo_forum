@@ -35,8 +35,8 @@
     <% else %>
     <% end %>
   </ul>
-  <div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade active in" id="mypost">
+  <div class="tab-content">
+    <div class="tab-pane active" id="mypost">
       <table class="table">
         <tbody>
           <% @published_posts.each do |post| %>
@@ -55,7 +55,7 @@
         </tbody>
       </table>
     </div>
-    <div class="tab-pane fade" id="mycomment">
+    <div class="tab-pane" id="mycomment">
       <table class="table">
         <tbody>
           <% @replies.each do |reply| %>
@@ -91,7 +91,7 @@
         <%= paginate @replies, param_name: "replies_page" %>
       </div>
     </div>
-    <div class="tab-pane fade" id="mycollect">
+    <div class="tab-pane" id="mycollect">
       <table class="table">
         <tbody>
           <% @collects.each do |collect| %>
@@ -114,7 +114,7 @@
         </tbody>
       </table>
     </div>
-    <div class="tab-pane fade" id="mydraft">
+    <div class="tab-pane" id="mydraft">
       <table class="table">
         <tbody>
           <% @draft_posts.each do |post| %>
@@ -145,20 +145,20 @@
         </tbody>
       </table>
     </div>
-    <div class="tab-pane fade" id="myfriend">
+    <div class="tab-pane" id="myfriend">
       <% if @invitings.count > 0 %>
         <div class="col-md-12 text-center">
           <h4>Inviting</h4>
           <% @invitings.each do |inviting| %>
-            <div class="col-md-2 border">
+            <div class="col-md-2 border text-center">
               <%= link_to user_path(inviting) do %>
                 <% if inviting.avatar? %>
-                  <%= image_tag inviting.avatar.url, class: "img-responsive img-circle", size: "100x100" %>
+                  <p><%= image_tag inviting.avatar.url, class: "img-circle", size: "100x100" %></p>
                 <% else %>
                   no avatar
                 <% end %>
                 <br>
-                <%= inviting.name %>
+                <p><%= inviting.name %></p>
               <% end %>
             </div>
           <% end %>
@@ -169,15 +169,15 @@
         <div class="col-md-12 text-center">
           <h4>Wait for your response</h4>
           <% @inviters.each do |inviter| %>
-            <div class="col-md-2 border">
+            <div class="col-md-2 border text-center">
               <%= link_to user_path(inviter) do %>
                 <% if inviter.avatar? %>
-                  <%= image_tag inviter.avatar.url, class: "img-responsive img-circle", size: "100x100" %>
+                  <p><%= image_tag inviter.avatar.url, class: "img-circle", size: "100x100" %></p>
                 <% else %>
                   no avatar
                 <% end %>
                 <br>
-                <%= inviter.name %>
+                <p><%= inviter.name %></p>
                 <br>
                 <div id="friend_button">
                   <%= render partial: "shared/friend_button", locals: {user: inviter} %>
@@ -190,15 +190,15 @@
       <div class="col-md-12 text-center">
         <h4>Your friends</h4>
         <% @friends.each do |friend| %>
-          <div class="col-md-2 border">
+          <div class="col-md-2 border text-center">
             <%= link_to user_path(friend) do %>
               <% if friend.avatar? %>
-                <%= image_tag friend.avatar.url, class: "img-responsive img-circle", size: "100x100" %>
+                <p><%= image_tag friend.avatar.url, class: "img-circle", size: "100x100" %></p>
               <% else %>
                 no avatar
               <% end %>
               <br>
-              <%= friend.name %>
+              <p><%= friend.name %></p>
             <% end %>
           </div>
         <% end %>
