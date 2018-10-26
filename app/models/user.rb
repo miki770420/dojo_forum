@@ -28,11 +28,19 @@ class User < ApplicationRecord
         return false
       else
         inviter = self.inverse_friendships.find_by(user: user)
-        inviter.status == 'accept'
+        if inviter.status == 'accept'
+          return true
+        else
+          return false
+        end
       end
     else
       inviting = self.friendships.find_by(friend: user)
-      inviting.status == 'accept'
+      if inviting.status == 'accept'
+        return true
+      else
+        return false
+      end
     end
   end
 
