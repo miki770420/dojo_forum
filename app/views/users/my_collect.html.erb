@@ -26,10 +26,10 @@
 </div>
 <div class="col-md-12">
   <ul class="nav nav-tabs nav-justified"">
-    <li class="active"><%= link_to "My Post", user_path(@user) %></li>
+    <li><%= link_to "My Post", user_path(@user) %></li>
     <li><%= link_to "My Reply", my_reply_user_path(@user) %></li>
     <% if @user == current_user %>
-      <li><%= link_to "My Collect", my_collect_user_path(@user) %></li>    
+      <li class="active"><%= link_to "My Collect", my_collect_user_path(@user) %></li>    
       <li><%= link_to "My Draft", my_draft_user_path(@user) %></li>
       <li><%= link_to "My Friend", my_friend_user_path(@user) %></li>
     <% else %>
@@ -39,23 +39,27 @@
     <div class="tab-pane active">
       <table class="table">
         <tbody>
-          <% @published_posts.each do |post| %>
+          <% @collects.each do |collect| %>
             <tr>
-              <td class="col-md-8">
-                <%= link_to "#{post.title}", post_path(post) %>
+              <td>
+                <%= link_to "#{collect.title}", post_path(collect) %>
               </td>
-              <td class="col-md-2">
-                Published
-              </td>
-              <td class="col-md-2">
-                <%= post.created_at.strftime("%F %T") %>
+              <td>
+                <% if @user == current_user %>
+                  <% if collect.is_collected?(@user) %>
+                    <%= link_to 'Uncollect', uncollect_post_path(collect), method: :post, class: "btn btn-warning pull-right" %>
+                  <% else %>
+                    <%= link_to 'Collect', collect_post_path(collect), method: :post, class: "btn btn-primary pull-right" %>
+                  <% end %>
+                <% else %>
+                <% end %>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
       <div style="text-align: center">
-        <%= paginate @published_posts, param_name: "published_page" %>
+        <%= paginate @collects, param_name: "collection_page" %>
       </div>
     </div>
   </div>

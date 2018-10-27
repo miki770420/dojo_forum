@@ -5,12 +5,24 @@ class UsersController < ApplicationController
 
   def show
     @published_posts = @user.posts.where( :draft => false ).page(params[:published_page]).per(20)
-    @draft_posts = @user.posts.where( :draft => true ).page(params[:draft_page]).per(20)
+  end
+
+  def my_reply
     @replies = @user.replies.page(params[:replies_page]).per(20)
+  end
+
+  def my_collect
+    @collects = @user.collected_posts.page(params[:collection_page]).per(20)
+  end
+
+  def my_draft
+    @draft_posts = @user.posts.where( :draft => true ).page(params[:draft_page]).per(20)
+  end
+
+  def my_friend
     @friends = current_user.friends.where('friendships.status = ?', 'accept')
     @invitings = current_user.friends.where('friendships.status = ?', 'wait')
     @inviters = current_user.inviters.where('friendships.status = ?', 'wait')
-    @collects = @user.collected_posts.page(params[:collection_page]).per(20)
   end
 
   def edit

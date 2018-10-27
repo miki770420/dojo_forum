@@ -20,6 +20,10 @@ Rails.application.routes.draw do
       post :invite
       post :accept
       post :ignore
+      get :my_friend
+      get :my_draft
+      get :my_collect
+      get :my_reply
     end
   end
 

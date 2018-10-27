@@ -26,8 +26,8 @@
 </div>
 <div class="col-md-12">
   <ul class="nav nav-tabs nav-justified"">
-    <li class="active"><%= link_to "My Post", user_path(@user) %></li>
-    <li><%= link_to "My Reply", my_reply_user_path(@user) %></li>
+    <li><%= link_to "My Post", user_path(@user) %></li>
+    <li class="active"><%= link_to "My Reply", my_reply_user_path(@user) %></li>
     <% if @user == current_user %>
       <li><%= link_to "My Collect", my_collect_user_path(@user) %></li>    
       <li><%= link_to "My Draft", my_draft_user_path(@user) %></li>
@@ -39,23 +39,37 @@
     <div class="tab-pane active">
       <table class="table">
         <tbody>
-          <% @published_posts.each do |post| %>
-            <tr>
-              <td class="col-md-8">
-                <%= link_to "#{post.title}", post_path(post) %>
-              </td>
-              <td class="col-md-2">
-                Published
-              </td>
-              <td class="col-md-2">
-                <%= post.created_at.strftime("%F %T") %>
-              </td>
-            </tr>
+          <% @replies.each do |reply| %>
+          <tr>
+            <td>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">
+                    Post Title: <%= link_to "#{reply.post.title}", post_path(reply.post) %>
+                  </h3>
+                </div>
+                <div class="panel-body">
+                  <%= reply.comment %>
+                  <br>
+                  <%= link_to post_reply_path(reply.post, reply), method: :delete do %>
+                    <button type="button" class="btn btn-default pull-right">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                  <% end %>
+                  <%= link_to edit_post_reply_path(reply.post, reply) do %>
+                    <button type="button" class="btn btn-default pull-right">
+                      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </button>
+                  <% end %>
+                </div>
+              </div> 
+            </td>
+          </tr>
           <% end %>
         </tbody>
       </table>
       <div style="text-align: center">
-        <%= paginate @published_posts, param_name: "published_page" %>
+        <%= paginate @replies, param_name: "replies_page" %>
       </div>
     </div>
   </div>

@@ -1,0 +1,99 @@
+<div class="well well-lg">
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="list-unstyled">
+        <li>
+          <% if image_path(@user.avatar).include?('/user'+ @user.id.to_s+'.jpg') %> 
+            <%= image_tag('/avatar/user'+@user.id.to_s+'.jpg', size: "200x200", class: "img-responsive img-circle") %>
+          <% else %>
+            <% if @user.avatar? %>
+              <%= image_tag @user.avatar.url, class: "img-responsive img-circle", size: "200x200" %>
+            <% else %>
+              no avatar
+            <% end %>
+          <% end %>
+        </li>
+        <li><strong><h3><%= link_to @user.name, user_path(@user) %></h3></strong></li>
+        <li><h6><%= @user.description %></h6></li>
+      </ul>
+      <% if current_user == @user %>
+        <%= link_to "Edit", edit_user_path(@user), class: "btn btn-primary pull-right" %>
+      <% else %>
+        <%= render partial: "shared/friend_button", locals: {user: @user} %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <ul class="nav nav-tabs nav-justified"">
+    <li><%= link_to "My Post", user_path(@user) %></li>
+    <li><%= link_to "My Reply", my_reply_user_path(@user) %></li>
+    <% if @user == current_user %>
+      <li><%= link_to "My Collect", my_collect_user_path(@user) %></li>    
+      <li><%= link_to "My Draft", my_draft_user_path(@user) %></li>
+      <li class="active"><%= link_to "My Friend", my_friend_user_path(@user) %></li>
+    <% else %>
+    <% end %>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active">
+      <% if @invitings.count > 0 %>
+        <div class="col-md-12 text-center">
+          <h4>Inviting</h4>
+          <% @invitings.each do |inviting| %>
+            <div class="col-md-2 border text-center">
+              <%= link_to user_path(inviting) do %>
+                <% if inviting.avatar? %>
+                  <p><%= image_tag inviting.avatar.url, class: "img-circle", size: "100x100" %></p>
+                <% else %>
+                  no avatar
+                <% end %>
+                <br>
+                <p><%= inviting.name %></p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <p></p>
+      <% if @inviters.count > 0 %>
+        <div class="col-md-12 text-center">
+          <h4>Wait for your response</h4>
+          <% @inviters.each do |inviter| %>
+            <div class="col-md-2 border text-center">
+              <%= link_to user_path(inviter) do %>
+                <% if inviter.avatar? %>
+                  <p><%= image_tag inviter.avatar.url, class: "img-circle", size: "100x100" %></p>
+                <% else %>
+                  no avatar
+                <% end %>
+                <br>
+                <p><%= inviter.name %></p>
+                <br>
+                <div id="friend_button">
+                  <%= render partial: "shared/friend_button", locals: {user: inviter} %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="col-md-12 text-center">
+        <h4>Your friends</h4>
+        <% @friends.each do |friend| %>
+          <div class="col-md-2 border text-center">
+            <%= link_to user_path(friend) do %>
+              <% if friend.avatar? %>
+                <p><%= image_tag friend.avatar.url, class: "img-circle", size: "100x100" %></p>
+              <% else %>
+                no avatar
+              <% end %>
+              <br>
+              <p><%= friend.name %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
